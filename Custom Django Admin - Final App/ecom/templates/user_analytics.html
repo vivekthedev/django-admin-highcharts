@@ -1,0 +1,45 @@
+{% extends 'admin/base_site.html' %}
+{% load static %}
+{% block nav-global %}
+<a href="/admin/ecom/user">Show User Data</a>
+{% endblock nav-global %}
+{% block content %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const chart = Highcharts.chart('container-chart', {
+            chart: {
+                type: 'column',
+               options3d: {
+                    enabled: true,
+                    alpha: 15,
+                    beta: 15,
+                    depth: 50,
+                    viewDistance: 25
+                }
+            },
+
+            title: {
+                text: 'Users Demographics'
+            },
+            xAxis: {
+                categories: {{ countries| safe }}
+                },
+        yAxis: {
+        min: 0
+    },
+        series: [{
+            name: 'Users',
+            data: {{ data }},
+                    colorByPoint: true
+
+
+                }]
+            })
+        });
+</script>
+<script src="{% static 'js/highcharts.js' %}"></script>
+
+    <div id="container-chart" style="width:70%; height:400px; margin:0 auto;">
+    </div>
+
+{% endblock content %}
